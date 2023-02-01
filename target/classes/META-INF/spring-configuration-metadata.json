@@ -1,0 +1,39 @@
+{
+  "groups": [
+    {
+      "name": "app",
+      "type": "br.com.kebos.config.AppProperties",
+      "sourceType": "br.com.kebos.config.AppProperties"
+    },
+    {
+      "name": "app.auth",
+      "type": "br.com.kebos.config.AppProperties$Auth",
+      "sourceType": "br.com.kebos.config.AppProperties",
+      "sourceMethod": "getAuth()"
+    },
+    {
+      "name": "app.oauth2",
+      "type": "br.com.kebos.config.AppProperties$OAuth2",
+      "sourceType": "br.com.kebos.config.AppProperties",
+      "sourceMethod": "getOauth2()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.auth.token-expiration-msec",
+      "type": "java.lang.Long",
+      "sourceType": "br.com.kebos.config.AppProperties$Auth"
+    },
+    {
+      "name": "app.auth.token-secret",
+      "type": "java.lang.String",
+      "sourceType": "br.com.kebos.config.AppProperties$Auth"
+    },
+    {
+      "name": "app.oauth2.authorized-redirect-uris",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "br.com.kebos.config.AppProperties$OAuth2"
+    }
+  ],
+  "hints": []
+}
