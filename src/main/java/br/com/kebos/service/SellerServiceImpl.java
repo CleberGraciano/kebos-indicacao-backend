@@ -1,10 +1,12 @@
 package br.com.kebos.service;
 
+import br.com.kebos.dto.SellerDTO;
 import br.com.kebos.model.Seller;
 import br.com.kebos.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -27,7 +29,9 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public Seller save(Seller seller) {
+    public Seller save(SellerDTO sellerDTO) {
+        Seller seller = Seller.convert(sellerDTO);
+        seller.setCreated(LocalDate.now());
         return sellerRepository.save(seller);
     }
 

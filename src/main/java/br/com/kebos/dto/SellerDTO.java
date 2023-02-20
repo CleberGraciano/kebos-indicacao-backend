@@ -1,0 +1,32 @@
+package br.com.kebos.dto;
+import br.com.kebos.model.Seller;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotBlank;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class SellerDTO {
+
+    @NotBlank
+    private String nome;
+
+    @NotBlank
+    private String email;
+
+    @NotBlank
+    private String telefone;
+
+    public static SellerDTO convert(Seller seller) {
+        SellerDTO sellerDTO = new SellerDTO();
+
+        sellerDTO.setNome(seller.getNome());
+        sellerDTO.setEmail(seller.getEmail());
+        sellerDTO.setTelefone(seller.getTelefone());
+
+        return sellerDTO;
+    }
+
+}

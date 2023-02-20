@@ -1,11 +1,14 @@
 package br.com.kebos.controller;
 
+import br.com.kebos.dto.RecommendationDTO;
 import br.com.kebos.model.Recommendation;
+import br.com.kebos.model.User;
 import br.com.kebos.service.RecommendationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,7 +40,7 @@ public class RecommendationControllerImpl implements RecommendationController{
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public Recommendation saveRecommendation(@Valid @RequestBody Recommendation recommendation) {
-        return recommendationService.saveRecommendation(recommendation);
+    public Recommendation saveRecommendation(@Valid @RequestBody RecommendationDTO recommendationDTO) {
+        return recommendationService.saveRecommendation(recommendationDTO);
     }
 }

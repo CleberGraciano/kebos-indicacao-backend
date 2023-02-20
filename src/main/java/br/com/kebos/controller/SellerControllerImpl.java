@@ -1,5 +1,6 @@
 package br.com.kebos.controller;
 
+import br.com.kebos.dto.SellerDTO;
 import br.com.kebos.model.Seller;
 import br.com.kebos.service.SellerService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -37,7 +38,7 @@ public class SellerControllerImpl implements SellerController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<Seller> saveSeller(@Valid @RequestBody Seller seller){
-        return ResponseEntity.ok(sellerService.save(seller));
+    public ResponseEntity<Seller> saveSeller(@Valid @RequestBody SellerDTO sellerDTO){
+        return ResponseEntity.ok(sellerService.save(sellerDTO));
     }
 }

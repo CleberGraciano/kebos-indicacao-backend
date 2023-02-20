@@ -1,5 +1,6 @@
 package br.com.kebos.model;
 
+import br.com.kebos.dto.SellerDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,16 +22,25 @@ public class Seller {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
     private String nome;
-  
-    @NotBlank
+
     private String email;
-  
-    @NotBlank
+
     private String telefone;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
     private LocalDate created;
+
+    public static Seller convert(SellerDTO sellerDTO) {
+        Seller seller = new Seller();
+
+        seller.setNome(sellerDTO.getNome());
+        seller.setEmail(sellerDTO.getEmail());
+        seller.setTelefone(sellerDTO.getTelefone());
+
+        return seller;
+    }
+
+
 
 }

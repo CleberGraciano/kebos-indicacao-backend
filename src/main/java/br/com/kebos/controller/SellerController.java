@@ -1,5 +1,6 @@
 package br.com.kebos.controller;
 
+import br.com.kebos.dto.SellerDTO;
 import br.com.kebos.model.Seller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,5 +31,5 @@ public interface SellerController {
             @ApiResponse(responseCode = "201", description = "Vendedor salvo com sucesso", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Seller.class)) }),
             @ApiResponse(responseCode = "400", description = "Verifique os dados do vendedor antes de salvar", content = @Content),
             @ApiResponse(responseCode = "500", description = "Problema no servidor aguarde", content = @Content) })
-    ResponseEntity<Seller> saveSeller(Seller seller);
+    ResponseEntity<Seller> saveSeller(SellerDTO sellerDTO);
 }

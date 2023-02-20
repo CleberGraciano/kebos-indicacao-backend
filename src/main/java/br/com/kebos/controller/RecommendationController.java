@@ -1,6 +1,8 @@
 package br.com.kebos.controller;
 
+import br.com.kebos.dto.RecommendationDTO;
 import br.com.kebos.model.Recommendation;
+import br.com.kebos.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,6 +32,6 @@ public interface RecommendationController {
             @ApiResponse(responseCode = "201", description = "Recomendação salva com sucesso", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Recommendation.class)) }),
             @ApiResponse(responseCode = "400", description = "Verifique os dados antes de salvar", content = @Content),
             @ApiResponse(responseCode = "500", description = "Problema no servidor aguarde", content = @Content) })
-    Recommendation saveRecommendation(Recommendation recommendation);
+    Recommendation saveRecommendation(RecommendationDTO recommendationDTO);
 
 }

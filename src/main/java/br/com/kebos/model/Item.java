@@ -30,8 +30,10 @@ public class Item implements Serializable {
     @NotBlank
     private String nome;
 
+    private int quantidade;
 
-    private float bonus;
+
+    private double bonus;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
     @JsonIgnore
