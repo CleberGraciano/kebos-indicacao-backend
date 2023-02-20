@@ -1,0 +1,4 @@
+docker build --build-arg JAR_FILE=target/*.jar -t kebos.com/kebosapp .
+
+docker run --name kebosBackend  -p 8080:8080 -d kebos.com/kebosapp
+
