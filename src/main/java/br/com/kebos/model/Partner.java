@@ -34,7 +34,4 @@ public class Partner extends User  {
     private FinanceData financeData;
 
 
-
-
-
 }
