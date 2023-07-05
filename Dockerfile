@@ -1,5 +1,6 @@
-FROM openjdk:11-jdk
+FROM maven:3.8.2-jdk-11
 WORKDIR /app
-COPY ./target/kebos-indicacao-backend-1.0.0.jar /app
+COPY . .
+RUN mvn clean install
 EXPOSE 8080
-CMD ["java", "-jar", "kebos-indicacao-backend-1.0.0.jar"]
+CMD ["java", "-jar", "./target/kebos-indicacao-backend-1.0.0.jar"]
