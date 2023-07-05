@@ -1,7 +1,9 @@
 package br.com.kebos.controller;
 
+import br.com.kebos.dto.RecommendationCardDto;
 import br.com.kebos.dto.RecommendationDTO;
 import br.com.kebos.model.Recommendation;
+import br.com.kebos.model.StatusRecommendationEnum;
 import br.com.kebos.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,5 +35,13 @@ public interface RecommendationController {
             @ApiResponse(responseCode = "400", description = "Verifique os dados antes de salvar", content = @Content),
             @ApiResponse(responseCode = "500", description = "Problema no servidor aguarde", content = @Content) })
     Recommendation saveRecommendation(RecommendationDTO recommendationDTO);
+
+
+    @Operation(summary = "Pesquisa Recomendações por Status")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Recomendação encontrada", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Recommendation.class)) }),
+            @ApiResponse(responseCode = "400", description = "Status da recomendação inválido", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Recomendação não encontrada", content = @Content) })
+    List<RecommendationCardDto> listAllRecommendationsByStatus(StatusRecommendationEnum status);
 
 }

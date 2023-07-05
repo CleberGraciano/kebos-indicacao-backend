@@ -1,15 +1,15 @@
 package br.com.kebos.service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import br.com.kebos.dto.LocalUser;
 import br.com.kebos.dto.SignUpRequest;
 import br.com.kebos.dto.SocialProvider;
+import br.com.kebos.model.Partner;
+import br.com.kebos.model.PasswordResetToken;
 import br.com.kebos.model.User;
+import br.com.kebos.repository.PartnerRepository;
+import br.com.kebos.repository.PasswordResetTokenRepository;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfo;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfoFactory;
 import br.com.kebos.util.GeneralUtils;
@@ -38,6 +38,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PartnerRepository partnerRepository;
+	@Autowired
+	private EmailService emailService;
+
+	@Autowired
+	PasswordResetTokenRepository passwordResetTokenRepository;
 
 	@Override
 	@Transactional(value = "transactionManager")
@@ -113,4 +120,35 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> findUserById(Long id) {
 		return userRepository.findById(id);
 	}
+
+	public Partner updatePartner(Partner partner){
+		User user = userRepository.findByEmail(partner.getEmail());
+		if (user!=null) {
+			partner.setStatusCadastro(true);
+			return partnerRepository.save(partner);
+		}else {
+			user.setStatusCadastro(false);
+			throw new RuntimeException("Usuario não encontrado");
+		}
+	}
+
+	public List<Partner> listPartner(){
+		return partnerRepository.findAll();
+	}
+
+	@Override
+	public void resetPassword(String email) {
+		User user = userRepository.findByEmail(email);
+		if (user == null) {
+			throw new RuntimeException("Usuário não encontrado");
+		}
+
+		String token = UUID.randomUUID().toString();
+		PasswordResetToken passwordResetToken = new PasswordResetToken(token, user);
+		passwordResetTokenRepository.save(passwordResetToken);
+
+		String resetLink = "http://seusite.com/reset-password?token=" + token;
+		emailService.sendPasswordResetEmail(user.getEmail(), resetLink);
+	}
+
 }

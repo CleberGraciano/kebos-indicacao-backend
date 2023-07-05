@@ -1,6 +1,5 @@
 FROM openjdk:11-jdk
 WORKDIR /app
-ARG JAR_FILE
-COPY ${JAR_FILE} /app/app.jar
+COPY ./target/kebos-indicacao-backend-1.0.0.jar /app
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+CMD ["java", "-jar", "kebos-indicacao-backend-1.0.0.jar"]
