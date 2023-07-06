@@ -24,8 +24,8 @@ public class Item implements Serializable {
     @JsonIgnore
     private long id;
 
-    @NotBlank
-    private String tipo;
+    @OneToOne
+    private Category category;
 
     @NotBlank
     private String nome;

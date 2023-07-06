@@ -1,0 +1,9 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Jul 05 03:22:54 UTC 2023
+@default-spring-release-https\://repo.spring.io/release/.lastUpdated=1688527373558
+https\://repo.maven.apache.org/maven2/.lastUpdated=1688527374889
+https\://repo.spring.io/milestone/.error=
+https\://repo.spring.io/milestone/.lastUpdated=1688527374500
+https\://repo.spring.io/snapshot/.error=
+https\://repo.spring.io/snapshot/.lastUpdated=1688527374042
+https\://repo.spring.io/release/.error=Could not transfer artifact io.zipkin.brave\:brave-bom\:pom\:5.13.2 from/to spring-release (https\://repo.spring.io/release)\: authentication failed for https\://repo.spring.io/release/io/zipkin/brave/brave-bom/5.13.2/brave-bom-5.13.2.pom, status\: 401 Unauthorized

@@ -48,6 +48,8 @@ public class User implements Serializable {
 
 	private String provider;
 
+	private boolean statusCadastro;
+
 	//Bi-direcional associação muitos para muitos para Role
 	@JsonIgnore
 	@ManyToMany

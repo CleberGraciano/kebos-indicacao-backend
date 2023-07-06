@@ -33,5 +33,6 @@ public class Partner extends User  {
     @Embedded
     private FinanceData financeData;
 
+    private boolean termoUso;
 
 }

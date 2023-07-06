@@ -1,10 +1,12 @@
 package br.com.kebos.service;
 
+import br.com.kebos.dto.RecommendationCardDto;
 import br.com.kebos.dto.RecommendationDTO;
 import br.com.kebos.model.*;
 import br.com.kebos.repository.ItemRepository;
 import br.com.kebos.repository.RecommendationRepository;
 import br.com.kebos.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,19 +14,29 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RecommendationServiceImpl implements RecommendationService{
 
-    @Autowired
+
     private RecommendationRepository recommendationRepository;
 
-    @Autowired
+
     private UserRepository userRepository;
 
-    @Autowired
+
     private ItemRepository itemRepository;
+
+
+    private final ModelMapper mapper;
+    @Autowired
+    public RecommendationServiceImpl(RecommendationRepository recommendationRepository, UserRepository userRepository, ItemRepository itemRepository, ModelMapper mapper) {
+        this.recommendationRepository = recommendationRepository;
+        this.userRepository = userRepository;
+        this.itemRepository = itemRepository;
+        this.mapper = mapper;
+    }
 
 
     @Override
@@ -44,9 +56,8 @@ public class RecommendationServiceImpl implements RecommendationService{
         List<Item> items = new ArrayList<>();
         List<Double> valoresBonus = new ArrayList<>();
 
-
         recommendation.setUser(user);
-        recommendation.setStatus("encaminhado");
+        recommendation.setStatus(StatusRecommendationEnum.ENVIADO);
 
         recommendationDTO.getItems().forEach((id, quantidade) -> {
 
@@ -61,6 +72,13 @@ public class RecommendationServiceImpl implements RecommendationService{
         recommendation.setValortotal(valoresBonus.stream().mapToDouble(Double::doubleValue).sum());
 
         return recommendationRepository.save(recommendation);
+    }
+
+    @Override
+    public List<RecommendationCardDto> listAllRecommendationsByStatus(StatusRecommendationEnum status) {
+        return recommendationRepository.findByStatusLike(status)
+                .stream().map(recommendation -> mapper.map(recommendation, RecommendationCardDto.class))
+                .collect(Collectors.toList());
     }
 
     private String getUserLogged() {

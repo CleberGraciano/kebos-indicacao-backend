@@ -1,14 +1,17 @@
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\config\AppProperties.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\controller\RecommendationController.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\dto\SellerDTO.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\Category.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\validator\PasswordMatches.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\CustomOidcUserService.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\LocalUserDetailService.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\PasswordResetToken.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\SellerService.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\UserServiceImpl.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\PartnerService.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\repository\UserRepository.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\ItemServiceImpl.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\repository\PasswordResetTokenRepository.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\user\FacebookOAuth2UserInfo.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\exception\UserAlreadyExistAuthenticationException.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\repository\ItemRepository.java
@@ -16,8 +19,10 @@ C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\Applicatio
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\repository\SellerRepository.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\RecommendationServiceImpl.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\OAuth2AuthenticationSuccessHandler.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\StatusRecommendationEnum.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\util\GeneralUtils.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\TipoContaEnum.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\dto\RecommendationCardDto.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\jwt\TokenAuthenticationFilter.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\CustomOAuth2UserService.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\exception\OAuth2AuthenticationProcessingException.java
@@ -25,6 +30,7 @@ C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\Addr
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\user\GoogleOAuth2UserInfo.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\FinanceData.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\dto\SocialProvider.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\EmailService.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\RecommendationService.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\UserService.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\repository\RoleRepository.java
@@ -38,9 +44,11 @@ C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\exception\
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\exception\ResourceNotFoundException.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\Partner.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\user\LinkedinOAuth2UserInfo.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\controller\CategoryController.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\repository\PartnerRepository.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\config\SetupDataLoader.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\controller\RecommendationControllerImpl.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\repository\CategoryRepository.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\config\WebSecurityConfig.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\dto\RecommendationDTO.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\user\GithubOAuth2UserInfo.java
@@ -48,6 +56,7 @@ C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\config\Web
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\user\OAuth2UserInfo.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\Item.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\User.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\controller\CategoryControllerImpl.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\security\oauth2\user\OAuth2UserInfoFactory.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\util\CookieUtils.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\dto\ApiResponse.java
@@ -73,3 +82,4 @@ C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\model\Role
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\controller\UserController.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\controller\AuthController.java
 C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\validator\PasswordMatchesValidator.java
+C:\Desenvolvimento\kebos-indicacao-backend\src\main\java\br\com\kebos\service\CategoryService.java

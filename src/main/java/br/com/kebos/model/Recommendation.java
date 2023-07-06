@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,6 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recommendation implements Serializable {
+
+
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -28,17 +30,26 @@ public class Recommendation implements Serializable {
     private String nomeContato;
     private String telefone;
 
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
     private List<Item> items  ;
 
     private double valortotal ;
     private String observacao ;
-    private String status;
+    private StatusRecommendationEnum status;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date modifiedDate;
+
 
     public static Seller convert(SellerDTO sellerDTO) {
         Seller seller = new Seller();

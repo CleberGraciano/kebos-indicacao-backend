@@ -3,6 +3,7 @@ package br.com.kebos.controller;
 import javax.validation.Valid;
 
 import br.com.kebos.exception.UserAlreadyExistAuthenticationException;
+import br.com.kebos.model.Partner;
 import br.com.kebos.security.jwt.TokenProvider;
 import br.com.kebos.service.UserService;
 import br.com.kebos.util.GeneralUtils;
@@ -14,10 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.kebos.dto.ApiResponse;
 import br.com.kebos.dto.JwtAuthenticationResponse;
@@ -26,6 +24,8 @@ import br.com.kebos.dto.LoginRequest;
 import br.com.kebos.dto.SignUpRequest;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -60,5 +60,15 @@ public class AuthController {
 			return new ResponseEntity<>(new ApiResponse(false, "Endereço de email já está em uso!"), HttpStatus.BAD_REQUEST);
 		}
 		return ResponseEntity.ok().body(new ApiResponse(true, "Usuário registrado com sucesso"));
+	}
+	@PostMapping("/partner")
+	public ResponseEntity<?> savePartner(@RequestBody Partner partner){
+		userService.updatePartner(partner);
+		return ResponseEntity.ok().body(partner);
+	}
+
+	@GetMapping("/partnes")
+	public List<Partner> listPartner(){
+		return userService.listPartner();
 	}
 }
