@@ -71,4 +71,10 @@ public class AuthController {
 	public List<Partner> listPartner(){
 		return userService.listPartner();
 	}
+
+
+	@GetMapping("/partner/{id}")
+	public Partner getPartnerById(@PathVariable(name = "id") long id){
+		return userService.getPartnerById(id);
+	}
 }

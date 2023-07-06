@@ -132,6 +132,11 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public Partner getPartnerById(Long id) {
+		return partnerRepository.findById(id).get();
+	}
+
 	public List<Partner> listPartner(){
 		return partnerRepository.findAll();
 	}

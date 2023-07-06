@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 
 import br.com.kebos.exception.UserAlreadyExistAuthenticationException;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface UserService {
 
@@ -20,6 +21,8 @@ public interface UserService {
 	User findUserByEmail(String email);
 
 	Optional<User> findUserById(Long id);
+
+	Partner getPartnerById(Long id);
 
 	List<Partner> listPartner();
 	Partner updatePartner(Partner partner);
