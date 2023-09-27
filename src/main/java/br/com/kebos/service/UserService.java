@@ -22,10 +22,10 @@ public interface UserService {
 
 	Optional<User> findUserById(Long id);
 
-	Partner getPartnerById(Long id);
+	User getPartnerById(Long id);
 
-	List<Partner> listPartner();
-	Partner updatePartner(Partner partner);
+	List<User> listPartner();
+	User updatePartner(User partner);
 
 	void resetPassword(String email);
 

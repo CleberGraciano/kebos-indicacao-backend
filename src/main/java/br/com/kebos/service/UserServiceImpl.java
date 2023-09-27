@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(id);
 	}
 
-	public Partner updatePartner(Partner partner){
+	public User updatePartner(User partner){
 		User user = userRepository.findByEmail(partner.getEmail());
 		if (user!=null) {
 			partner.setStatusCadastro(true);
@@ -133,11 +133,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Partner getPartnerById(Long id) {
+	public User getPartnerById(Long id) {
 		return partnerRepository.findById(id).get();
 	}
 
-	public List<Partner> listPartner(){
+	public List<User> listPartner(){
 		return partnerRepository.findAll();
 	}
 

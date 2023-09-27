@@ -2,7 +2,7 @@ package br.com.kebos.dto;
 
 public enum SocialProvider {
 
-	FACEBOOK("facebook"), TWITTER("twitter"), LINKEDIN("linkedin"), GOOGLE("google"), GITHUB("github"), LOCAL("local");
+	FACEBOOK("facebook"), LINKEDIN("linkedin"), GOOGLE("google"), LOCAL("local");
 
 	private String providerType;
 

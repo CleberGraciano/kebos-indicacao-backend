@@ -11,13 +11,9 @@ public class OAuth2UserInfoFactory {
 			return new GoogleOAuth2UserInfo(attributes);
 		} else if (registrationId.equalsIgnoreCase(SocialProvider.FACEBOOK.getProviderType())) {
 			return new FacebookOAuth2UserInfo(attributes);
-		} else if (registrationId.equalsIgnoreCase(SocialProvider.GITHUB.getProviderType())) {
-			return new GithubOAuth2UserInfo(attributes);
-		} else if (registrationId.equalsIgnoreCase(SocialProvider.LINKEDIN.getProviderType())) {
+		}  else if (registrationId.equalsIgnoreCase(SocialProvider.LINKEDIN.getProviderType())) {
 			return new LinkedinOAuth2UserInfo(attributes);
-		} else if (registrationId.equalsIgnoreCase(SocialProvider.TWITTER.getProviderType())) {
-			return new GithubOAuth2UserInfo(attributes);
-		} else {
+		}  else {
 			throw new OAuth2AuthenticationProcessingException("Desculpe! Logar com " + registrationId + " ainda não é suportado.");
 		}
 	}
