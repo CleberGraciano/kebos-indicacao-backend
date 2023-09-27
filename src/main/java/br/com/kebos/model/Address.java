@@ -1,10 +1,6 @@
 package br.com.kebos.model;
 
 
-import javax.persistence.Embeddable;
-
-
-@Embeddable
 public class Address {
 
     private String cep;

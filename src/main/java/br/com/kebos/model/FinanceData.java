@@ -1,10 +1,8 @@
 package br.com.kebos.model;
 
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public class FinanceData {
+
 
     private String pix;
 

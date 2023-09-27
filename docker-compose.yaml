@@ -26,6 +26,7 @@ services:
         "spring.datasource.username" : "$MYSQLDB_USER",
         "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver",
         "spring.jpa.hibernate.ddl-auto" : "update",
         "spring.mail.username" : "$EMAIL",
         "spring.mail.password" : "$PASSWORD_EMAIL"
@@ -38,7 +39,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 8083:80
+      - "8083:80"
     environment:
       - PMA_ARBITRARY=1
 volumes:

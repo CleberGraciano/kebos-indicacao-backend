@@ -5,7 +5,6 @@ import java.util.*;
 import br.com.kebos.dto.LocalUser;
 import br.com.kebos.dto.SignUpRequest;
 import br.com.kebos.dto.SocialProvider;
-import br.com.kebos.model.Partner;
 import br.com.kebos.model.PasswordResetToken;
 import br.com.kebos.model.User;
 import br.com.kebos.repository.PartnerRepository;
@@ -13,6 +12,7 @@ import br.com.kebos.repository.PasswordResetTokenRepository;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfo;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfoFactory;
 import br.com.kebos.util.GeneralUtils;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -121,16 +121,41 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(id);
 	}
 
-	public User updatePartner(User partner){
+	/*
+	public Partner updatePartner(Partner partner){
 		User user = userRepository.findByEmail(partner.getEmail());
 		if (user!=null) {
 			partner.setStatusCadastro(true);
+			partner.setId(user.getId());
+			partner.setEmail();
 			return partnerRepository.save(partner);
 		}else {
 			user.setStatusCadastro(false);
 			throw new RuntimeException("Usuario não encontrado");
 		}
 	}
+
+	 */
+
+	public User updatePartner(Long userId, User newPartnerData) throws NotFoundException {
+		User existingUser = null;
+			existingUser = partnerRepository.findById(userId)
+					.orElseThrow(() -> new NotFoundException("Partner not found"));
+			// Update the existing partner's properties
+			existingUser.setImagem(newPartnerData.getImagem());
+			existingUser.setDataNascimento(newPartnerData.getDataNascimento());
+			existingUser.setCpf(newPartnerData.getCpf());
+			existingUser.setCep(newPartnerData.getCep());
+			existingUser.setLogradouro(newPartnerData.getLogradouro());
+			existingUser.setNumero(newPartnerData.getNumero());
+			existingUser.setBairro(newPartnerData.getBairro());
+			existingUser.setCidade(newPartnerData.getCidade());
+			existingUser.setUf(newPartnerData.getUf());
+
+		return partnerRepository.save(existingUser);
+	}
+
+
 
 	@Override
 	public User getPartnerById(Long id) {

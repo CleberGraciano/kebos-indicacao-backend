@@ -1,11 +1,13 @@
 package br.com.kebos.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -55,4 +57,39 @@ public class User implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
 	private Set<Role> roles;
+
+
+	private String imagem;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
+	private LocalDate dataNascimento;
+
+	private String cpf;
+
+	private String cep;
+	private String logradouro;
+	private String numero;
+	private String bairro;
+	private String cidade;
+	private String uf;
+
+
+	private String celular;
+	private String foneFixo;
+	private String foneComercial;
+
+
+	private String pix;
+
+	private String banco;
+
+	private TipoContaEnum  tipoContaEnum;
+
+	private String agencia;
+
+	private String conta;
+
+	private String digito;
+
+	private boolean termoUso;
 }

@@ -3,12 +3,12 @@ package br.com.kebos.controller;
 import javax.validation.Valid;
 
 import br.com.kebos.exception.UserAlreadyExistAuthenticationException;
-import br.com.kebos.model.Partner;
 import br.com.kebos.model.User;
 import br.com.kebos.security.jwt.TokenProvider;
 import br.com.kebos.service.UserService;
 import br.com.kebos.util.GeneralUtils;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,9 +62,13 @@ public class AuthController {
 		}
 		return ResponseEntity.ok().body(new ApiResponse(true, "Usuário registrado com sucesso"));
 	}
-	@PostMapping("/partner")
-	public ResponseEntity<?> savePartner(@RequestBody User partner){
-		userService.updatePartner(partner);
+	@PutMapping("/partner/{id}")
+	public ResponseEntity<?> savePartner(@PathVariable(name = "id") Long id, @RequestBody User partner){
+		try {
+			userService.updatePartner(id, partner);
+		} catch (NotFoundException e) {
+			throw new RuntimeException(e);
+		}
 		return ResponseEntity.ok().body(partner);
 	}
 
