@@ -151,6 +151,15 @@ public class UserServiceImpl implements UserService {
 			existingUser.setBairro(newPartnerData.getBairro());
 			existingUser.setCidade(newPartnerData.getCidade());
 			existingUser.setUf(newPartnerData.getUf());
+			existingUser.setCelular(newPartnerData.getCelular());
+			existingUser.setFoneFixo(newPartnerData.getFoneFixo());
+			existingUser.setFoneComercial(newPartnerData.getFoneComercial());
+			existingUser.setPix(newPartnerData.getPix());
+			existingUser.setBanco(newPartnerData.getBanco());
+			existingUser.setTipoContaEnum(newPartnerData.getTipoContaEnum());
+			existingUser.setAgencia(newPartnerData.getAgencia());
+			existingUser.setConta(newPartnerData.getConta());
+			existingUser.setDigito(newPartnerData.getDigito());
 
 		return partnerRepository.save(existingUser);
 	}
