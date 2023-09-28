@@ -43,6 +43,9 @@ public class Recommendation implements Serializable {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @OneToOne
+    private Seller seller;
+
     @Column(name = "created_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     protected Date createdDate;
