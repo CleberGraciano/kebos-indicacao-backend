@@ -1,4 +1,4 @@
-package br.com.kebos.controller;
+package br.com.kebos.controller.impl;
 
 import javax.validation.Valid;
 
@@ -27,6 +27,7 @@ import br.com.kebos.dto.SignUpRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -79,7 +80,7 @@ public class AuthController {
 
 
 	@GetMapping("/partner/{id}")
-	public User getPartnerById(@PathVariable(name = "id") long id){
+	public User getPartnerById(@PathVariable(name = "id") Long id){
 		return userService.getPartnerById(id);
 	}
 }

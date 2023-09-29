@@ -22,16 +22,13 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @JsonIgnore
-    private long id;
+    private Long id;
 
     @OneToOne
     private Category category;
 
     @NotBlank
     private String nome;
-
-    private int quantidade;
-
 
     private double bonus;
 

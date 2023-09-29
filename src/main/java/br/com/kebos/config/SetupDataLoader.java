@@ -17,7 +17,7 @@ import br.com.kebos.model.Role;
 import br.com.kebos.repository.RoleRepository;
 import br.com.kebos.repository.UserRepository;
 
-//@Component
+@Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
 	private boolean alreadySetup = false;

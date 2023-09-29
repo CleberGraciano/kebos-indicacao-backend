@@ -1,5 +1,6 @@
-package br.com.kebos.service;
+package br.com.kebos.service.impl;
 
+import br.com.kebos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +11,8 @@ import br.com.kebos.dto.LocalUser;
 import br.com.kebos.exception.ResourceNotFoundException;
 import br.com.kebos.model.User;
 import br.com.kebos.util.GeneralUtils;
+
+import java.util.UUID;
 
 @Service("localUserDetailService")
 public class LocalUserDetailService implements UserDetailsService {

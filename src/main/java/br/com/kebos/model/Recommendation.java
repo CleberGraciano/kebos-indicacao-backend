@@ -26,7 +26,7 @@ public class Recommendation implements Serializable {
     private Long id;
     private String nomePessoaEmpresa;
     private String cpfCnpj;
-    private String emailprivate;
+    private String email;
     private String nomeContato;
     private String telefone;
 
@@ -69,10 +69,11 @@ public class Recommendation implements Serializable {
 
         recommendation.setNomePessoaEmpresa(recommendationDTO.getNomePessoaEmpresa());
         recommendation.setCpfCnpj(recommendationDTO.getCpfCnpj());
-        recommendation.setEmailprivate(recommendationDTO.getEmailprivate());
+        recommendation.setEmail(recommendationDTO.getEmail());
         recommendation.setNomeContato(recommendationDTO.getNomeContato());
         recommendation.setTelefone(recommendationDTO.getTelefone());
         recommendation.setObservacao(recommendationDTO.getObservacao());
+        recommendation.setSeller(recommendationDTO.getSeller());
 
         return recommendation;
     }

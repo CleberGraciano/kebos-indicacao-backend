@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -24,7 +25,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 65981149772133526L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ID")
 	private Long id;
 

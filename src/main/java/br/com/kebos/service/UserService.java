@@ -3,6 +3,7 @@ package br.com.kebos.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.kebos.dto.LocalUser;
 import br.com.kebos.dto.SignUpRequest;

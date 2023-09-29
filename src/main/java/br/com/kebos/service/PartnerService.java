@@ -9,7 +9,7 @@ public interface PartnerService {
 
     List<User> listAllPartner();
     List<Recommendation> listRecomendations();
-    Recommendation listByIdRecommendation(long id);
+    Recommendation listByIdRecommendation(Long id);
     Recommendation saveRecommendation(Recommendation recommendation);
 
 }

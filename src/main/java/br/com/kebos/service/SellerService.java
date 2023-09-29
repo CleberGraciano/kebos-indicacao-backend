@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface SellerService {
     List<Seller> findAll();
-    Seller findById(long id);
+    Seller findById(Long id);
     Seller save(SellerDTO seller);
 }

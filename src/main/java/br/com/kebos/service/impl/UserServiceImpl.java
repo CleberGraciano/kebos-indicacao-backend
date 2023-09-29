@@ -1,4 +1,4 @@
-package br.com.kebos.service;
+package br.com.kebos.service.impl;
 
 import java.util.*;
 
@@ -11,6 +11,7 @@ import br.com.kebos.repository.PartnerRepository;
 import br.com.kebos.repository.PasswordResetTokenRepository;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfo;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfoFactory;
+import br.com.kebos.service.UserService;
 import br.com.kebos.util.GeneralUtils;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,7 @@ public class UserServiceImpl implements UserService {
 		Date now = Calendar.getInstance().getTime();
 		user.setCreatedDate(now);
 		user.setModifiedDate(now);
+		user.setTermoUso(false);
 		user = userRepository.save(user);
 		userRepository.flush();
 		return user;
@@ -108,6 +110,7 @@ public class UserServiceImpl implements UserService {
 
 	private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
 		existingUser.setDisplayName(oAuth2UserInfo.getName());
+		existingUser.setTermoUso(false);
 		return userRepository.save(existingUser);
 	}
 
@@ -120,22 +123,6 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> findUserById(Long id) {
 		return userRepository.findById(id);
 	}
-
-	/*
-	public Partner updatePartner(Partner partner){
-		User user = userRepository.findByEmail(partner.getEmail());
-		if (user!=null) {
-			partner.setStatusCadastro(true);
-			partner.setId(user.getId());
-			partner.setEmail();
-			return partnerRepository.save(partner);
-		}else {
-			user.setStatusCadastro(false);
-			throw new RuntimeException("Usuario não encontrado");
-		}
-	}
-
-	 */
 
 	public User updatePartner(Long userId, User newPartnerData) throws NotFoundException {
 		User existingUser = null;

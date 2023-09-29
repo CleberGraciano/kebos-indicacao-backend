@@ -24,7 +24,7 @@ public interface SellerController {
             @ApiResponse(responseCode = "200", description = "Vendedor encontrado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Seller.class)) }),
             @ApiResponse(responseCode = "400", description = "Id do vendedor inválido", content = @Content),
             @ApiResponse(responseCode = "404", description = "Item não encontrado", content = @Content) })
-    ResponseEntity<Seller> findByIdSeller(long id);
+    ResponseEntity<Seller> findByIdSeller(Long id);
 
     @Operation(summary = "Salva um vendedor na base de dados")
     @ApiResponses(value = {

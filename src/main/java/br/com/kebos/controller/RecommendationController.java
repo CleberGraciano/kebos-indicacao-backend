@@ -4,12 +4,15 @@ import br.com.kebos.dto.RecommendationCardDto;
 import br.com.kebos.dto.RecommendationDTO;
 import br.com.kebos.model.Recommendation;
 import br.com.kebos.model.StatusRecommendationEnum;
-import br.com.kebos.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 
@@ -26,7 +29,7 @@ public interface RecommendationController {
             @ApiResponse(responseCode = "200", description = "Recomendação encontrada", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Recommendation.class)) }),
             @ApiResponse(responseCode = "400", description = "Id da recomendação inválido", content = @Content),
             @ApiResponse(responseCode = "404", description = "Recomendação não encontrada", content = @Content) })
-    Recommendation listByIdRecommendation(long id);
+    Recommendation listByIdRecommendation(Long id);
 
 
     @Operation(summary = "Salva uma recomendação na base de dados")
@@ -43,5 +46,12 @@ public interface RecommendationController {
             @ApiResponse(responseCode = "400", description = "Status da recomendação inválido", content = @Content),
             @ApiResponse(responseCode = "404", description = "Recomendação não encontrada", content = @Content) })
     List<RecommendationCardDto> listAllRecommendationsByStatus(StatusRecommendationEnum status);
+
+    @Operation(summary = "Atualiza Status Recomendações")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Recomendação encontrada", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Recommendation.class)) }),
+            @ApiResponse(responseCode = "400", description = "Status da recomendação inválido", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Recomendação não encontrada", content = @Content) })
+    ResponseEntity<?> updateRecommendationStatus(@PathVariable(name = "id") Long id, @RequestParam StatusRecommendationEnum statusRecommendationEnum);
 
 }

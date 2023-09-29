@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    Item findById(long id);
-
     List<Item> findByNomeLike(String nome);
 }

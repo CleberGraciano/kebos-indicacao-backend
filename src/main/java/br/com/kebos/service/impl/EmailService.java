@@ -1,4 +1,4 @@
-package br.com.kebos.service;
+package br.com.kebos.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

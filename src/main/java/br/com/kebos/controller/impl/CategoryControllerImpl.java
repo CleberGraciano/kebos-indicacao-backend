@@ -1,7 +1,7 @@
-package br.com.kebos.controller;
+package br.com.kebos.controller.impl;
 
 import br.com.kebos.model.Category;
-import br.com.kebos.service.CategoryService;
+import br.com.kebos.service.impl.CategoryService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class CategoryControllerImpl {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Category>> findByIdCategory(@PathVariable("id") long id){
+    public ResponseEntity<Category> findByIdCategory(@PathVariable("id") Long id){
         return ResponseEntity.ok(categoryService.findById(id));
     }
 

@@ -32,6 +32,6 @@ public interface CategoryController {
             @ApiResponse(responseCode = "200", description = "Categoria encontrada", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Item.class)) }),
             @ApiResponse(responseCode = "400", description = "Id da Categoria inválido", content = @Content),
             @ApiResponse(responseCode = "404", description = "Categoria não encontrado", content = @Content) })
-    ResponseEntity<Category> findByIdCategory(long id);
+    ResponseEntity<Category> findByIdCategory(Long id);
 
 }

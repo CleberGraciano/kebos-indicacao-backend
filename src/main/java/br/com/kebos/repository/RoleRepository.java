@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.kebos.model.Role;
 
+
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
