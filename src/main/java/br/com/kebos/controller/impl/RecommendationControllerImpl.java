@@ -52,7 +52,7 @@ public class RecommendationControllerImpl implements RecommendationController {
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/{status}")
+    @GetMapping("/status/{status}")
     public List<RecommendationCardDto> listAllRecommendationsByStatus(@PathVariable("status") StatusRecommendationEnum status) {
         return recommendationService.listAllRecommendationsByStatus(status);
     }

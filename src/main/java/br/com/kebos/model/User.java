@@ -40,17 +40,22 @@ public class User implements Serializable {
 	@Column(name = "DISPLAY_NAME")
 	private String displayName;
 
+	@JsonIgnore
 	@Column(name = "created_date", nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date createdDate;
 
+	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date modifiedDate;
 
+	@JsonIgnore
 	private String password;
 
+	@JsonIgnore
 	private String provider;
 
+	@JsonIgnore
 	private boolean statusCadastro;
 
 	//Bi-direcional associação muitos para muitos para Role

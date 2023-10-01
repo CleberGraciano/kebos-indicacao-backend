@@ -147,6 +147,7 @@ public class UserServiceImpl implements UserService {
 			existingUser.setAgencia(newPartnerData.getAgencia());
 			existingUser.setConta(newPartnerData.getConta());
 			existingUser.setDigito(newPartnerData.getDigito());
+			existingUser.setTermoUso(newPartnerData.isTermoUso());
 
 		return partnerRepository.save(existingUser);
 	}
