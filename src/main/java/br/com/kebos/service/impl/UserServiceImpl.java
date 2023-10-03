@@ -148,6 +148,7 @@ public class UserServiceImpl implements UserService {
 			existingUser.setConta(newPartnerData.getConta());
 			existingUser.setDigito(newPartnerData.getDigito());
 			existingUser.setTermoUso(newPartnerData.isTermoUso());
+			existingUser.setStatusCadastro(true);
 
 		return partnerRepository.save(existingUser);
 	}

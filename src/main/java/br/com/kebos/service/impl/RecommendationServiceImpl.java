@@ -58,8 +58,6 @@ public class RecommendationServiceImpl implements RecommendationService {
         User user = userRepository.findByEmail(getUserLogged());
         List<Item> items = new ArrayList<>();
         List<Double> valoresBonus = new ArrayList<>();
-        user.setStatusCadastro(true);
-        userRepository.save(user);
         recommendation.setUser(user);
         recommendation.setStatus(StatusRecommendationEnum.ENVIADO);
         recommendation.setCreatedDate(new Date());
