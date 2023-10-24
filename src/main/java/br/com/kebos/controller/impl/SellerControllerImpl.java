@@ -5,6 +5,7 @@ import br.com.kebos.dto.SellerDTO;
 import br.com.kebos.model.Seller;
 import br.com.kebos.service.SellerService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class SellerControllerImpl implements SellerController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN','MODERATOR','USER')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Seller> findByIdSeller(@PathVariable("id") Long id){
         return ResponseEntity.ok(sellerService.findById(id));
@@ -41,5 +42,12 @@ public class SellerControllerImpl implements SellerController {
     @PostMapping()
     public ResponseEntity<Seller> saveSeller(@Valid @RequestBody SellerDTO sellerDTO){
         return ResponseEntity.ok(sellerService.save(sellerDTO));
+    }
+
+    @Override
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR')")
+    @PutMapping("/{id}")
+    public ResponseEntity<Seller> updateSeller(@PathVariable("id") Long id, @Valid @RequestBody Seller seller) throws NotFoundException {
+        return ResponseEntity.ok(sellerService.update(id, seller));
     }
 }

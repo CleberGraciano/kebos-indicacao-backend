@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -33,5 +34,12 @@ public interface CategoryController {
             @ApiResponse(responseCode = "400", description = "Id da Categoria inválido", content = @Content),
             @ApiResponse(responseCode = "404", description = "Categoria não encontrado", content = @Content) })
     ResponseEntity<Category> findByIdCategory(Long id);
+
+    @Operation(summary = "Atualiza uma Categoria na base de dados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Categoria salvo com sucesso", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Item.class)) }),
+            @ApiResponse(responseCode = "400", description = "Verifique os dados antes de salvar", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Problema no servidor aguarde", content = @Content) })
+    ResponseEntity<?> updateCategory(@PathVariable(name = "id") Long id, Category category);
 
 }

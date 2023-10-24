@@ -3,6 +3,7 @@ import br.com.kebos.controller.ItemController;
 import br.com.kebos.model.Item;
 import br.com.kebos.service.ItemService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,19 +16,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/items")
 @SecurityRequirement(name = "kebosapi")
-public class ItemControllerImpl implements ItemController {
+public
+class ItemControllerImpl implements ItemController {
 
     @Autowired
     private ItemService itemService;
 
-    @PreAuthorize("hasRole('ADMIN','MODERATOR','USER')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<Item>> findAll(){
         return ResponseEntity.ok(itemService.findAll());
     }
 
 
-    @PreAuthorize("hasRole('ADMIN','MODERATOR','USER')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Item> findByIdItem(@PathVariable("id") Long id){
         return ResponseEntity.ok(itemService.findById(id));
@@ -37,6 +39,18 @@ public class ItemControllerImpl implements ItemController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Item> saveItem(@Valid @RequestBody Item item){
+        return ResponseEntity.ok(itemService.save(item));
+    }
+
+    @Override
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR')")
+    @PutMapping("/{id}")
+    public ResponseEntity<Item> updateItem(@PathVariable(name = "id") Long id, @Valid @RequestBody Item item){
+        try {
+            itemService.update(id, item);
+        } catch (NotFoundException e){
+            throw new RuntimeException(e);
+        }
         return ResponseEntity.ok(itemService.save(item));
     }
 }
