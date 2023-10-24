@@ -22,7 +22,7 @@ public class CategoryControllerImpl {
     @Autowired
     private CategoryService categoryService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN','MODERATOR','USER')")
     @GetMapping
     public ResponseEntity<List<Category>> findAllCategories(){
         return ResponseEntity.ok(categoryService.findAllCategories());
@@ -34,7 +34,7 @@ public class CategoryControllerImpl {
         return ResponseEntity.ok(categoryService.saveCategory(category));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN','MODERATOR','USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Category> findByIdCategory(@PathVariable("id") Long id){
         return ResponseEntity.ok(categoryService.findById(id));

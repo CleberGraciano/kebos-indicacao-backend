@@ -20,14 +20,14 @@ public class ItemControllerImpl implements ItemController {
     @Autowired
     private ItemService itemService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN','MODERATOR','USER')")
     @GetMapping
     public ResponseEntity<List<Item>> findAll(){
         return ResponseEntity.ok(itemService.findAll());
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN','MODERATOR','USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Item> findByIdItem(@PathVariable("id") Long id){
         return ResponseEntity.ok(itemService.findById(id));

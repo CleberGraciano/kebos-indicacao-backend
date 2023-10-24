@@ -30,7 +30,7 @@ public class SellerControllerImpl implements SellerController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN','MODERATOR','USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Seller> findByIdSeller(@PathVariable("id") Long id){
         return ResponseEntity.ok(sellerService.findById(id));
