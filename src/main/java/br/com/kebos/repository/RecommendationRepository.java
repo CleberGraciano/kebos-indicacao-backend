@@ -23,8 +23,6 @@ public interface RecommendationRepository extends JpaRepository<Recommendation, 
     Recommendation findByUserAndId(User user, long id);
     Recommendation findAllBySeller(Seller seller);
 
-    List<Recommendation>
-
 
 
 }
