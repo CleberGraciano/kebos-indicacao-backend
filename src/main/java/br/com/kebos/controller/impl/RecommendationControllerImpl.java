@@ -30,14 +30,14 @@ public class RecommendationControllerImpl implements RecommendationController {
     private RecommendationService recommendationService;
 
     @Override
-    @PreAuthorize("hasAnyRole('ADMIN','MODERATOR','USER')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
     @GetMapping
     public List<Recommendation> listAllRecommendations() {
         return recommendationService.listAllRecommendations();
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('ADMIN','MODERATOR','USER')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
     @GetMapping("/{id}")
     public Recommendation listByIdRecommendation(Long id) {
         return recommendationService.listByIdRecommendation(id);
