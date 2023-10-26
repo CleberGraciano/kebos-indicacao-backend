@@ -24,7 +24,7 @@ public class SellerControllerImpl implements SellerController {
     SellerService sellerService;
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
     @GetMapping()
     public ResponseEntity<List<Seller>> findAll(){
         return ResponseEntity.ok(sellerService.findAll());
@@ -38,7 +38,7 @@ public class SellerControllerImpl implements SellerController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR')")
     @PostMapping()
     public ResponseEntity<Seller> saveSeller(@Valid @RequestBody SellerDTO sellerDTO){
         return ResponseEntity.ok(sellerService.save(sellerDTO));
