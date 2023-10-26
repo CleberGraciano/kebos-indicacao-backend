@@ -27,6 +27,9 @@ public class Seller {
 
     private String telefone;
 
+    @OneToOne
+    private User user;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
     private LocalDate created;
 

@@ -3,9 +3,7 @@ package br.com.kebos.service.impl;
 import br.com.kebos.dto.RecommendationCardDto;
 import br.com.kebos.dto.RecommendationDTO;
 import br.com.kebos.model.*;
-import br.com.kebos.repository.ItemRepository;
-import br.com.kebos.repository.RecommendationRepository;
-import br.com.kebos.repository.UserRepository;
+import br.com.kebos.repository.*;
 import br.com.kebos.service.RecommendationService;
 import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
@@ -31,25 +29,37 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     private ItemRepository itemRepository;
 
+    private RoleRepository roleRepository;
+
+    private SellerRepository sellerRepository;
+
 
     private final ModelMapper mapper;
     @Autowired
-    public RecommendationServiceImpl(RecommendationRepository recommendationRepository, UserRepository userRepository, ItemRepository itemRepository, ModelMapper mapper) {
+    public RecommendationServiceImpl(RecommendationRepository recommendationRepository, UserRepository userRepository, ItemRepository itemRepository, RoleRepository roleRepository, SellerRepository sellerRepository, ModelMapper mapper) {
         this.recommendationRepository = recommendationRepository;
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
+        this.roleRepository = roleRepository;
+        this.sellerRepository = sellerRepository;
         this.mapper = mapper;
     }
 
 
     @Override
     public List<Recommendation> listAllRecommendations() {
-        return recommendationRepository.findAll();
+
+        User user = userRepository.findByEmail(getUserLogged());
+        return recommendationRepository.findAllByUser(user);
     }
 
     @Override
     public Recommendation listByIdRecommendation(Long id) {
-        return recommendationRepository.findById(id).get();
+        User user = userRepository.findByEmail(getUserLogged());
+
+
+
+        return recommendationRepository.findByUserAndId(user, id);
     }
 
     @Override
@@ -79,7 +89,9 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public List<RecommendationCardDto> listAllRecommendationsByStatus(StatusRecommendationEnum status) {
-        return recommendationRepository.findByStatusLike(status)
+        User user = userRepository.findByEmail(getUserLogged());
+
+        return recommendationRepository.findByUserAndStatusLike(user, status)
                 .stream().map(recommendation -> mapper.map(recommendation, RecommendationCardDto.class))
                 .collect(Collectors.toList());
     }

@@ -19,6 +19,12 @@ public class SellerDTO {
     @NotBlank
     private String telefone;
 
+    @NotBlank
+    private String password;
+
+    @NotBlank
+    private String confirmPassword;
+
     public static SellerDTO convert(Seller seller) {
         SellerDTO sellerDTO = new SellerDTO();
 
