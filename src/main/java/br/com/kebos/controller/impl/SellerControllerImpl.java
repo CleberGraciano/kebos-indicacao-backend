@@ -24,28 +24,28 @@ public class SellerControllerImpl implements SellerController {
     SellerService sellerService;
 
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping()
     public ResponseEntity<List<Seller>> findAll(){
         return ResponseEntity.ok(sellerService.findAll());
     }
 
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Seller> findByIdSeller(@PathVariable("id") Long id){
         return ResponseEntity.ok(sellerService.findById(id));
     }
 
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @PostMapping()
     public ResponseEntity<Seller> saveSeller(@Valid @RequestBody SellerDTO sellerDTO){
         return ResponseEntity.ok(sellerService.save(sellerDTO));
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @PutMapping("/{id}")
     public ResponseEntity<Seller> updateSeller(@PathVariable("id") Long id, @Valid @RequestBody Seller seller) throws NotFoundException {
         return ResponseEntity.ok(sellerService.update(id, seller));

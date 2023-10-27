@@ -30,35 +30,35 @@ public class RecommendationControllerImpl implements RecommendationController {
     private RecommendationService recommendationService;
 
     @Override
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping
     public List<Recommendation> listAllRecommendations() {
         return recommendationService.listAllRecommendations();
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping("/{id}")
     public Recommendation listByIdRecommendation(Long id) {
         return recommendationService.listByIdRecommendation(id);
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @PostMapping
     public Recommendation saveRecommendation(@Valid @RequestBody RecommendationDTO recommendationDTO) {
         return recommendationService.saveRecommendation(recommendationDTO);
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping("/status/{status}")
     public List<RecommendationCardDto> listAllRecommendationsByStatus(@PathVariable("status") StatusRecommendationEnum status) {
         return recommendationService.listAllRecommendationsByStatus(status);
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @PutMapping("/{id}")
     public ResponseEntity<?> updateRecommendationStatus(@PathVariable(name = "id") Long id, @RequestParam StatusRecommendationEnum statusRecommendationEnum){
         try {

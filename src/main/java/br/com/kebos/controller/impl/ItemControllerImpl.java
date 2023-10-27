@@ -22,14 +22,14 @@ class ItemControllerImpl implements ItemController {
     @Autowired
     private ItemService itemService;
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<Item>> findAll(){
         return ResponseEntity.ok(itemService.findAll());
     }
 
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Item> findByIdItem(@PathVariable("id") Long id){
         return ResponseEntity.ok(itemService.findById(id));
@@ -43,7 +43,7 @@ class ItemControllerImpl implements ItemController {
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @PutMapping("/{id}")
     public ResponseEntity<Item> updateItem(@PathVariable(name = "id") Long id, @Valid @RequestBody Item item){
         try {

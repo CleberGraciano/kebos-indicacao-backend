@@ -24,25 +24,25 @@ public class CategoryControllerImpl {
     @Autowired
     private CategoryService categoryService;
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<Category>> findAllCategories(){
         return ResponseEntity.ok(categoryService.findAllCategories());
     }
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @PostMapping
     public ResponseEntity<Category> saveCategory(@Valid @RequestBody Category category){
         return ResponseEntity.ok(categoryService.saveCategory(category));
     }
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR') and hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Category> findByIdCategory(@PathVariable("id") Long id){
         return ResponseEntity.ok(categoryService.findById(id));
     }
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @PutMapping("/{id}")
     public ResponseEntity<?> updateItem(@PathVariable(name = "id") Long id, @Valid @RequestBody Category category) throws NotFoundException {
         return  ResponseEntity.ok(categoryService.update(id, category));
