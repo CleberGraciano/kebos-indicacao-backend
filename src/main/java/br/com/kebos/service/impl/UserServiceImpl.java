@@ -151,14 +151,8 @@ public class UserServiceImpl implements UserService {
 			existingUser.setDisplayName(newPartnerData.getDisplayName());
 			existingUser.setEmail(newPartnerData.getEmail());
 			existingUser.setStatusCadastro(true);
-			if (!existingUser.getCpf().isEmpty() || existingUser.getCpf()!=null || !existingUser.getCpf().isBlank() &&
-					!existingUser.getPix().isEmpty() || existingUser.getPix()!=null || !existingUser.getPix().isBlank() &&
-					!existingUser.getDisplayName().isEmpty() || existingUser.getDisplayName()!=null || !existingUser.getDisplayName().isBlank() &&
-					!existingUser.getEmail().isEmpty() || existingUser.getEmail()!=null || !existingUser.getEmail().isBlank()){
-				partnerRepository.save(existingUser);
-			} else {
-				new RuntimeException("Favor preencher os campos obrigatórios!!");
-			}
+
+			partnerRepository.save(existingUser);
 
 		return existingUser;
 	}
