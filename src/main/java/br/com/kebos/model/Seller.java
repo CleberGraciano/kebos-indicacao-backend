@@ -20,7 +20,6 @@ public class Seller {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @JsonIgnore
     private Long id;
 
     private String nome;

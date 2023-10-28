@@ -39,7 +39,6 @@ public class ItemServiceImpl implements ItemService {
         existingItem = itemRepository.findById(itemId).orElseThrow(() -> new NotFoundException("Item not found"));
         existingItem.setNome(newItem.getNome());
         existingItem.setBonus(newItem.getBonus());
-        existingItem.setCategory(newItem.getCategory());
         return itemRepository.save(existingItem);
     }
 }

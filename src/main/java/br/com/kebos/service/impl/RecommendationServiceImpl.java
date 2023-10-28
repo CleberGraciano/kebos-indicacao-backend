@@ -27,20 +27,14 @@ public class RecommendationServiceImpl implements RecommendationService {
     private UserRepository userRepository;
 
 
-    private ItemRepository itemRepository;
-
-    private RoleRepository roleRepository;
-
     private SellerRepository sellerRepository;
 
 
     private final ModelMapper mapper;
     @Autowired
-    public RecommendationServiceImpl(RecommendationRepository recommendationRepository, UserRepository userRepository, ItemRepository itemRepository, RoleRepository roleRepository, SellerRepository sellerRepository, ModelMapper mapper) {
+    public RecommendationServiceImpl(RecommendationRepository recommendationRepository, UserRepository userRepository, SellerRepository sellerRepository, ModelMapper mapper) {
         this.recommendationRepository = recommendationRepository;
         this.userRepository = userRepository;
-        this.itemRepository = itemRepository;
-        this.roleRepository = roleRepository;
         this.sellerRepository = sellerRepository;
         this.mapper = mapper;
     }
@@ -50,40 +44,33 @@ public class RecommendationServiceImpl implements RecommendationService {
     public List<Recommendation> listAllRecommendations() {
 
         User user = userRepository.findByEmail(getUserLogged());
-        return recommendationRepository.findAllByUser(user);
+        if(user.getRoles().toString().contains("MODERATOR") || user.getRoles().toString().contains("ADMIN")){
+            return recommendationRepository.findAll();
+        } else {
+            return recommendationRepository.findAllByUser(user);
+        }
     }
 
     @Override
     public Recommendation listByIdRecommendation(Long id) {
         User user = userRepository.findByEmail(getUserLogged());
 
+        if(user.getRoles().toString().contains("MODERATOR") || user.getRoles().toString().contains("ADMIN")){
+            return recommendationRepository.findById(id).get();
+        } else {
+            return recommendationRepository.findByUserAndId(user, id);
+        }
 
-
-        return recommendationRepository.findByUserAndId(user, id);
     }
 
     @Override
     public Recommendation saveRecommendation(RecommendationDTO recommendationDTO) {
         Recommendation recommendation = Recommendation.convert(recommendationDTO);
         User user = userRepository.findByEmail(getUserLogged());
-        List<Item> items = new ArrayList<>();
-        List<Double> valoresBonus = new ArrayList<>();
         recommendation.setUser(user);
         recommendation.setStatus(StatusRecommendationEnum.ENVIADO);
         recommendation.setCreatedDate(new Date());
         recommendation.setModifiedDate(new Date());
-
-
-        recommendationDTO.getItems().forEach((id, quantidade) -> {
-
-            Item item =  itemRepository.findById(id).get();
-            valoresBonus.add(item.getBonus()*quantidade);
-            items.add(item);
-        });
-
-        recommendation.setItems(items);
-        recommendation.setValortotal(valoresBonus.stream().mapToDouble(Double::doubleValue).sum());
-
         return recommendationRepository.save(recommendation);
     }
 
@@ -91,9 +78,16 @@ public class RecommendationServiceImpl implements RecommendationService {
     public List<RecommendationCardDto> listAllRecommendationsByStatus(StatusRecommendationEnum status) {
         User user = userRepository.findByEmail(getUserLogged());
 
-        return recommendationRepository.findByUserAndStatusLike(user, status)
-                .stream().map(recommendation -> mapper.map(recommendation, RecommendationCardDto.class))
-                .collect(Collectors.toList());
+        if(user.getRoles().toString().contains("MODERATOR") || user.getRoles().toString().contains("ADMIN")){
+            return recommendationRepository.findByStatusLike(status)
+                    .stream().map(recommendation -> mapper.map(recommendation, RecommendationCardDto.class))
+                    .collect(Collectors.toList());
+        } else {
+            return recommendationRepository.findByUserAndStatusLike(user, status)
+                    .stream().map(recommendation -> mapper.map(recommendation, RecommendationCardDto.class))
+                    .collect(Collectors.toList());
+        }
+
     }
 
     private String getUserLogged() {

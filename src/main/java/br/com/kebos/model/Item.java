@@ -21,7 +21,6 @@ public class Item implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @JsonIgnore
     private Long id;
 
     @OneToOne

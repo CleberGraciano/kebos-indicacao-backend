@@ -18,6 +18,8 @@ public interface RecommendationRepository extends JpaRepository<Recommendation, 
 //    Recommendation findByCpfCnpj(String cpfCnpj);
     List<Recommendation> findByUserAndStatusLike(User user, StatusRecommendationEnum status);
 
+    List<Recommendation> findByStatusLike(StatusRecommendationEnum status);
+
     List<Recommendation> findAllByUser(User user);
 
     Recommendation findByUserAndId(User user, long id);

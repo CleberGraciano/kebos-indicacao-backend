@@ -30,21 +30,23 @@ public class Recommendation implements Serializable {
     private String nomeContato;
     private String telefone;
 
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_id")
-    private List<Item> items  ;
-
-    private double valortotal ;
-    private String observacao ;
-    private StatusRecommendationEnum status;
-
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
     @OneToOne
     private Seller seller;
+
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "itemRecommendation_id")
+    private List<ItemRecommendation> itemRecommendations;
+
+    private double valortotal ;
+    private String observacao ;
+    private StatusRecommendationEnum status;
+
+
 
     @Column(name = "created_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -72,8 +74,10 @@ public class Recommendation implements Serializable {
         recommendation.setEmail(recommendationDTO.getEmail());
         recommendation.setNomeContato(recommendationDTO.getNomeContato());
         recommendation.setTelefone(recommendationDTO.getTelefone());
+        recommendation.setItemRecommendations(recommendationDTO.getItemRecommendations());
         recommendation.setObservacao(recommendationDTO.getObservacao());
         recommendation.setSeller(recommendationDTO.getSeller());
+        recommendation.setValortotal(recommendationDTO.getValortotal());
 
         return recommendation;
     }
