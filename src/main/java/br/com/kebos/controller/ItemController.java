@@ -30,6 +30,13 @@ public interface ItemController {
             @ApiResponse(responseCode = "404", description = "Item não encontrado", content = @Content) })
     ResponseEntity<Item> findByIdItem(Long id);
 
+    @Operation(summary = "Pesquisa item pelo nome do item")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Itens encontrado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Item.class)) }),
+            @ApiResponse(responseCode = "400", description = "Não existem Itens com esse nome", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Item não encontrado", content = @Content) })
+    ResponseEntity<List<Item>> findByName(String name);
+
     @Operation(summary = "Salva um item na base de dados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Item salvo com sucesso", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Item.class)) }),

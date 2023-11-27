@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    List<Item> findByNomeLike(String nome);
+    //List<Item> findByItemNameContainingIgnoreCase(String name);
+    List<Item> findByNomeContainingIgnoreCase(String nome);
 }

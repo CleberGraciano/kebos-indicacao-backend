@@ -25,6 +25,9 @@ public interface UserService {
 	User getPartnerById(Long id);
 
 	List<User> listPartner();
+
+	List<User> listUsersByName(String name);
+
 	User updatePartner(Long partnerId, User partner) throws NotFoundException;
 
 	void resetPassword(String email);

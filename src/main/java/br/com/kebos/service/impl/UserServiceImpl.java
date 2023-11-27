@@ -85,6 +85,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> listUsersByName(final String name){ return userRepository.findByDisplayNameContainingIgnoreCase(name);}
+
+	@Override
 	@Transactional
 	public LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
 		OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, attributes);

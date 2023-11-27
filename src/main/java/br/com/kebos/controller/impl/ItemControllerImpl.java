@@ -35,6 +35,15 @@ class ItemControllerImpl implements ItemController {
         return ResponseEntity.ok(itemService.findById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
+    @GetMapping("/search")
+    public ResponseEntity<List<Item>> findByName(@RequestParam("name") String name) {
+        List<Item> items = itemService.findByName(name);
+        if (items.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(items);
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping

@@ -12,6 +12,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -78,6 +79,9 @@ public class AuthController {
 		return userService.listPartner();
 	}
 
+	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
+	@GetMapping("/search")
+	public List<User> listUsersByName(@RequestParam("name") String name){ return userService.listUsersByName(name);}
 
 	@GetMapping("/partner/{id}")
 	public User getPartnerById(@PathVariable(name = "id") Long id){

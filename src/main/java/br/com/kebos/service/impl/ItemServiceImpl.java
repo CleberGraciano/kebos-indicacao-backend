@@ -27,6 +27,9 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(id).get();
     }
 
+    public List<Item> findByName(String name){ return itemRepository.findByNomeContainingIgnoreCase(name); }
+
+
     @Override
     public Item save(Item item) {
         item.setCreated(LocalDate.now());

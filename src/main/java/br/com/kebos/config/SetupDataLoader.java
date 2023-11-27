@@ -96,8 +96,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			userAtualizado.setCelular(tel);
 			userAtualizado.setRoles(roles);
 			userAtualizado.setProvider(SocialProvider.LOCAL.getProviderType());
-			userAtualizado.setStatusCadastro(false);
+			userAtualizado.setStatusCadastro(true);
 			userAtualizado.setEnabled(true);
+			userAtualizado.setTermoUso(true);
 			seller.setUser(userAtualizado);
 			//salvando o Seller
 			seller = sellerRepository.save(seller);
@@ -110,8 +111,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			user.setPassword(passwordEncoder.encode("senha123"));
 			user.setRoles(roles);
 			user.setProvider(SocialProvider.LOCAL.getProviderType());
-			user.setStatusCadastro(false);
+			user.setStatusCadastro(true);
 			user.setEnabled(true);
+			user.setTermoUso(true);
 			Date now = Calendar.getInstance().getTime();
 			user.setCreatedDate(now);
 			user.setModifiedDate(now);

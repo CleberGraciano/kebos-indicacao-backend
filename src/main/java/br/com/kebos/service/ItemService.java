@@ -13,6 +13,8 @@ public interface ItemService {
     List<Item> findAll();
     Item save(Item item);
 
+    List<Item> findByName(String name);
+
     Item update(Long id, Item item) throws NotFoundException;
 
 }
