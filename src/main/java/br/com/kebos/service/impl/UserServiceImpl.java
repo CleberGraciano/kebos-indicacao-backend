@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 		user.setModifiedDate(now);
 		user.setTermoUso(false);
 		user = userRepository.save(user);
-		userRepository.flush();
+		//userRepository.flush();
 		return user;
 	}
 

@@ -2,6 +2,7 @@ package br.com.kebos.controller.impl;
 
 import javax.validation.Valid;
 
+import br.com.kebos.dto.*;
 import br.com.kebos.exception.UserAlreadyExistAuthenticationException;
 import br.com.kebos.model.User;
 import br.com.kebos.security.jwt.TokenProvider;
@@ -18,12 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import br.com.kebos.dto.ApiResponse;
-import br.com.kebos.dto.JwtAuthenticationResponse;
-import br.com.kebos.dto.LocalUser;
-import br.com.kebos.dto.LoginRequest;
-import br.com.kebos.dto.SignUpRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,6 +52,7 @@ public class AuthController {
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 		try {
+			signUpRequest.setSocialProvider(SocialProvider.LOCAL);
 			userService.registerNewUser(signUpRequest);
 		} catch (UserAlreadyExistAuthenticationException e) {
 			log.error("Exceção ocorrida ", e);
