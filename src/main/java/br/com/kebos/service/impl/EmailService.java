@@ -1,6 +1,7 @@
 package br.com.kebos.service.impl;
 
 
+import br.com.kebos.dto.EmailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,13 +24,14 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void enviarEmail(String destinatario, String assunto, String mensagem) {
+    public void enviarEmail(EmailDto emailDto) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
         try {
-            helper.setTo(destinatario);
-            helper.setSubject(assunto);
-            helper.setText(mensagem, true);
+            helper.setTo(emailDto.getDestinatario());
+            helper.setSubject(emailDto.getAssunto());
+            helper.setText(emailDto.getMensagem(), true);
+//            helper.setFrom(emailFrom);
         } catch (javax.mail.MessagingException ex) {
             throw new RuntimeException(ex);
         }

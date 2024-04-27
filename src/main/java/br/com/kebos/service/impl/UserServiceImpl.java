@@ -175,14 +175,15 @@ public class UserServiceImpl implements UserService {
 	public void resetPassword(String email) {
 		User user = userRepository.findByEmail(email);
 		if (user == null) {
-			throw new RuntimeException("Usuário não encontrado");
+			throw new RuntimeException("Email não encontrado");
 		}
 
 		String token = UUID.randomUUID().toString();
 		PasswordResetToken passwordResetToken = new PasswordResetToken(token, user);
 		passwordResetTokenRepository.save(passwordResetToken);
 
-		String resetLink = "http://seusite.com/reset-password?token=" + token;
+
+		String resetLink = "http://localhost:8081/reset-password?token=" + token;
 		emailService.sendPasswordResetEmail(user.getEmail(), resetLink);
 	}
 

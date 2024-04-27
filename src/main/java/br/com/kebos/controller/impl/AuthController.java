@@ -7,6 +7,7 @@ import br.com.kebos.exception.UserAlreadyExistAuthenticationException;
 import br.com.kebos.model.User;
 import br.com.kebos.security.jwt.TokenProvider;
 import br.com.kebos.service.UserService;
+import br.com.kebos.service.impl.EmailService;
 import br.com.kebos.util.GeneralUtils;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import javassist.NotFoundException;
@@ -33,6 +34,8 @@ public class AuthController {
 
 	@Autowired
 	AuthenticationManager authenticationManager;
+	@Autowired
+	EmailService emailService;
 
 	@Autowired
 	UserService userService;
@@ -82,5 +85,15 @@ public class AuthController {
 	@GetMapping("/partner/{id}")
 	public User getPartnerById(@PathVariable(name = "id") Long id){
 		return userService.getPartnerById(id);
+	}
+
+	@PostMapping("/reset-password/{email}")
+	public void resetPassword(@PathVariable String email){
+		userService.resetPassword(email);
+	}
+
+	@PostMapping("/sendMail")
+	public void enviarEmail(@RequestBody EmailDto emailDto){
+		emailService.enviarEmail(emailDto);
 	}
 }
