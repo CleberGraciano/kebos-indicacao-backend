@@ -39,7 +39,7 @@ public class RecommendationControllerImpl implements RecommendationController {
     @Override
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
     @GetMapping("/{id}")
-    public Recommendation listByIdRecommendation(Long id) {
+    public Recommendation listByIdRecommendation(@PathVariable(name = "id") Long id) {
         return recommendationService.listByIdRecommendation(id);
     }
 
