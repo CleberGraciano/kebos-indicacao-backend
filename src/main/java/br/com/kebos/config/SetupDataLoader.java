@@ -62,36 +62,31 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 	@Transactional
 	private final User createUserIfNotFound(final String email, Set<Role> roles) {
-		User user = userRepository.findByEmail(email);
-		if (user == null) {
-			user = new User();
-			user.setDisplayName("Admin");
-			user.setEmail(email);
-			user.setPassword(passwordEncoder.encode("kebos@Admin"));
-			user.setRoles(roles);
-			user.setProvider(SocialProvider.LOCAL.getProviderType());
-			user.setStatusCadastro(false);
-			user.setEnabled(true);
-			Date now = Calendar.getInstance().getTime();
-			user.setCreatedDate(now);
-			user.setModifiedDate(now);
-			user = userRepository.save(user);
+		User user;
+		if (userRepository.existsByEmail(email)) {
+			user = userRepository.findByEmail(email);
+			return user;
 		}
+		user = new User();
+		user.setDisplayName("Admin");
+		user.setEmail(email);
+		user.setPassword(passwordEncoder.encode("kebos@Admin"));
+		user.setRoles(roles);
+		user.setProvider(SocialProvider.LOCAL.getProviderType());
+		user.setStatusCadastro(false);
+		user.setEnabled(true);
+		Date now = Calendar.getInstance().getTime();
+		user.setCreatedDate(now);
+		user.setModifiedDate(now);
+		user = userRepository.save(user);
 		return user;
 	}
 
 	@Transactional
-	private final Seller createUpdateSellerAsUserIfNotFound(final String email, Set<Role> roles, String nome, String tel){
-		Seller seller = sellerRepository.findByEmail(email);
-		if (seller == null){
-			seller = new Seller();
-			seller.setNome(nome);
-			seller.setTelefone(tel);
-			seller.setEmail(email);
-			seller.setCreated(LocalDate.now());
-
-			//atualizando o Seller como usuário do sistema
-			User userAtualizado = userRepository.findByEmail(seller.getEmail());
+	private final User createSellerUser(Seller seller, Set<Role> roles, String nome, String tel, final String email) {
+		User userAtualizado;
+		if(userRepository.existsByEmail(seller.getEmail())) {
+			userAtualizado = userRepository.findByEmail(seller.getEmail());
 			userAtualizado.setDisplayName(nome);
 			userAtualizado.setCelular(tel);
 			userAtualizado.setRoles(roles);
@@ -99,29 +94,45 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			userAtualizado.setStatusCadastro(true);
 			userAtualizado.setEnabled(true);
 			userAtualizado.setTermoUso(true);
+		} else {
+			userAtualizado = new User();
+			userAtualizado.setDisplayName(nome);
+			userAtualizado.setEmail(email);
+			userAtualizado.setPassword(passwordEncoder.encode("senha123"));
+			userAtualizado.setRoles(roles);
+			userAtualizado.setProvider(SocialProvider.LOCAL.getProviderType());
+			userAtualizado.setStatusCadastro(true);
+			userAtualizado.setEnabled(true);
+			userAtualizado.setTermoUso(true);
+			Date now = Calendar.getInstance().getTime();
+			userAtualizado.setCreatedDate(now);
+			userAtualizado.setModifiedDate(now);
+			userAtualizado.setCelular(tel);
+		}
+
+		return userAtualizado;
+	}
+
+	@Transactional
+	private final Seller createUpdateSellerAsUserIfNotFound(final String email, Set<Role> roles, String nome, String tel){
+		Seller seller;
+		if (sellerRepository.existsByEmail(email)){
+			seller = sellerRepository.findByEmail(email);
+		} else {
+
+			seller = new Seller();
+			seller.setNome(nome);
+			seller.setTelefone(tel);
+			seller.setEmail(email);
+			seller.setCreated(LocalDate.now());
+
+			User userAtualizado = createSellerUser(seller, roles, nome, tel, email);
+
 			seller.setUser(userAtualizado);
 			//salvando o Seller
 			seller = sellerRepository.save(seller);
 		}
-		if(seller.getUser().equals(null)){
-			//Criando o Seller como usuário do sistema.
-			User user = new User();
-			user.setDisplayName(nome);
-			user.setEmail(email);
-			user.setPassword(passwordEncoder.encode("senha123"));
-			user.setRoles(roles);
-			user.setProvider(SocialProvider.LOCAL.getProviderType());
-			user.setStatusCadastro(true);
-			user.setEnabled(true);
-			user.setTermoUso(true);
-			Date now = Calendar.getInstance().getTime();
-			user.setCreatedDate(now);
-			user.setModifiedDate(now);
-			user.setCelular(tel);
-			seller.setUser(user);
-			//salvando o Seller
-			seller = sellerRepository.save(seller);
-		}
+
 		return seller;
 	}
 
