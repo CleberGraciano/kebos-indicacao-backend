@@ -98,4 +98,8 @@ public class User implements Serializable {
 	private String digito;
 
 	private boolean termoUso;
+
+	public String getEmail() {
+		return this.email;
+	}
 }

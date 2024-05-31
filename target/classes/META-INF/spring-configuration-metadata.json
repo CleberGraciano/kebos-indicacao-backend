@@ -22,8 +22,7 @@
     {
       "name": "app.auth.token-expiration-msec",
       "type": "java.lang.Long",
-      "sourceType": "br.com.kebos.config.AppProperties$Auth",
-      "defaultValue": 0
+      "sourceType": "br.com.kebos.config.AppProperties$Auth"
     },
     {
       "name": "app.auth.token-secret",
