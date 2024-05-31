@@ -87,8 +87,8 @@ public class AuthController {
 		return userService.getPartnerById(id);
 	}
 
-	@PostMapping("/reset-password/{email}")
-	public void resetPassword(@PathVariable String email){
+	@PostMapping("/reset-password")
+	public void resetPassword(@RequestBody String email){
 		userService.resetPassword(email);
 	}
 
