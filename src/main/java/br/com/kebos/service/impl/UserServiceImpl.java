@@ -155,6 +155,10 @@ public class UserServiceImpl implements UserService {
 			existingUser.setEmail(newPartnerData.getEmail());
 			existingUser.setStatusCadastro(true);
 
+			if (!newPartnerData.getPassword().equals("") && newPartnerData.getPassword()!= null) {
+				existingUser.setPassword(passwordEncoder.encode(newPartnerData.getPassword()));
+			}
+
 			partnerRepository.save(existingUser);
 
 		return existingUser;
