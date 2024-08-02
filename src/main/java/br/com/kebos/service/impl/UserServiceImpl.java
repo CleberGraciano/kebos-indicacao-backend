@@ -216,6 +216,8 @@ public void resetPassword(String email) {
 	Request request = new Request.Builder()
 			.url(urlEmail)
 			.post(body)
+			.addHeader("Access-Control-Allow-Origin", "*")
+			.addHeader("Content-Type", "application/json")
 			.build();
 
 	try (Response response = client.newCall(request).execute()) {
