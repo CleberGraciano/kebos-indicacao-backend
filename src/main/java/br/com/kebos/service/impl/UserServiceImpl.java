@@ -1,14 +1,14 @@
 package br.com.kebos.service.impl;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import br.com.kebos.dto.EmailDto;
 import br.com.kebos.dto.LocalUser;
 import br.com.kebos.dto.SignUpRequest;
 import br.com.kebos.dto.SocialProvider;
-import br.com.kebos.model.PasswordResetToken;
-import br.com.kebos.model.User;
+import br.com.kebos.model.*;
 import br.com.kebos.repository.PartnerRepository;
 import br.com.kebos.repository.PasswordResetTokenRepository;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfo;
@@ -21,6 +21,9 @@ import javassist.NotFoundException;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
@@ -30,7 +33,6 @@ import org.springframework.util.StringUtils;
 
 import br.com.kebos.exception.OAuth2AuthenticationProcessingException;
 import br.com.kebos.exception.UserAlreadyExistAuthenticationException;
-import br.com.kebos.model.Role;
 import br.com.kebos.repository.RoleRepository;
 import br.com.kebos.repository.UserRepository;
 
@@ -48,8 +50,14 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private PartnerRepository partnerRepository;
 
-	@Value("${url.email}")
-	private String urlEmail;
+//	@Value("${url.email}")
+//	private String urlEmail;
+
+	@Value("${spring.mail.username}")
+	private String emailFrom;
+
+	@Autowired
+	private JavaMailSender emailSender;
 
 	@Autowired
 	PasswordResetTokenRepository passwordResetTokenRepository;
@@ -199,8 +207,8 @@ public void resetPassword(String email) {
 	userRepository.save(user);
 
 
-	OkHttpClient client = new OkHttpClient();
-	Gson gson = new Gson();
+//	OkHttpClient client = new OkHttpClient();
+//	Gson gson = new Gson();
 
 	EmailDto emailRequest = new EmailDto(
 			email,
@@ -208,28 +216,36 @@ public void resetPassword(String email) {
 			"Nova senha: "+token
 	);
 
-
-	String json = gson.toJson(emailRequest);
-	MediaType JSON = MediaType.get("application/json; charset=utf-8");
-	RequestBody body = RequestBody.create(json, JSON);
-
-	Request request = new Request.Builder()
-			.url(urlEmail)
-			.post(body)
-			.addHeader("Access-Control-Allow-Origin", "*")
-			.addHeader("Content-Type", "application/json")
-			.build();
-
-	try (Response response = client.newCall(request).execute()) {
-		if (response.isSuccessful()) {
-			System.out.println("Response Code: " + response.code());
-			System.out.println("Response Body: " + response.body().string());
-		} else {
-			System.err.println("Request failed: " + response.code());
-		}
-	} catch (IOException e) {
-		e.printStackTrace();
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setFrom(emailFrom);
+			message.setTo(email);
+			message.setSubject("Recuperação de Senha Kebos");
+			message.setText("Nova senha: "+token);
+			emailSender.send(message);
 	}
-}
+
+
+
+//	String json = gson.toJson(emailRequest);
+//	MediaType JSON = MediaType.get("application/json; charset=utf-8");
+//	RequestBody body = RequestBody.create(json, JSON);
+
+//	Request request = new Request.Builder()
+//			.url(urlEmail)
+//			.post(body)
+//			.addHeader("Access-Control-Allow-Origin", "*")
+//			.addHeader("Content-Type", "application/json")
+//			.build();
+//
+//	try (Response response = client.newCall(request).execute()) {
+//		if (response.isSuccessful()) {
+//			System.out.println("Response Code: " + response.code());
+//			System.out.println("Response Body: " + response.body().string());
+//		} else {
+//			System.err.println("Request failed: " + response.code());
+//		}
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//	}
 
 }
