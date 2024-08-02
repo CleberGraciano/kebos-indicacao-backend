@@ -14,7 +14,8 @@ services:
         "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver",
-        "spring.jpa.hibernate.ddl-auto" : "update"
+        "spring.jpa.hibernate.ddl-auto" : "update",
+        "url.email" : "$URL_EMAIL"
       }'
     volumes:
       - .m2:/root/.m2

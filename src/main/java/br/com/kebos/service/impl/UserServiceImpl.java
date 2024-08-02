@@ -1,7 +1,9 @@
 package br.com.kebos.service.impl;
 
+import java.io.IOException;
 import java.util.*;
 
+import br.com.kebos.dto.EmailDto;
 import br.com.kebos.dto.LocalUser;
 import br.com.kebos.dto.SignUpRequest;
 import br.com.kebos.dto.SocialProvider;
@@ -13,8 +15,12 @@ import br.com.kebos.security.oauth2.user.OAuth2UserInfo;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfoFactory;
 import br.com.kebos.service.UserService;
 import br.com.kebos.util.GeneralUtils;
+import br.com.kebos.util.Util;
+import com.google.gson.Gson;
 import javassist.NotFoundException;
+import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
@@ -41,8 +47,9 @@ public class UserServiceImpl implements UserService {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private PartnerRepository partnerRepository;
-	@Autowired
-	private EmailService emailService;
+
+	@Value("${url.email}")
+	private String urlEmail;
 
 	@Autowired
 	PasswordResetTokenRepository passwordResetTokenRepository;
@@ -175,20 +182,52 @@ public class UserServiceImpl implements UserService {
 		return partnerRepository.findAll();
 	}
 
-	@Override
-	public void resetPassword(String email) {
-		User user = userRepository.findByEmail(email);
-		if (user == null) {
+@Override
+public void resetPassword(String email) {
+
+	User user = userRepository.findByEmail(email);
+
+	if (user == null) {
 			throw new RuntimeException("Email não encontrado");
-		}
-
-		String token = UUID.randomUUID().toString();
-		PasswordResetToken passwordResetToken = new PasswordResetToken(token, user);
-		passwordResetTokenRepository.save(passwordResetToken);
-
-
-		String resetLink = "http://localhost:8081/reset-password?token=" + token;
-		emailService.sendPasswordResetEmail(user.getEmail(), resetLink);
 	}
+
+//	String token = UUID.randomUUID().toString();
+	String token = Util.gerarSenha();
+	PasswordResetToken passwordResetToken = new PasswordResetToken(token, user);
+	passwordResetTokenRepository.save(passwordResetToken);
+	user.setPassword(passwordEncoder.encode(token));
+	userRepository.save(user);
+
+
+	OkHttpClient client = new OkHttpClient();
+	Gson gson = new Gson();
+
+	EmailDto emailRequest = new EmailDto(
+			email,
+			"Recuperação de Senha Kebos",
+			"Nova senha: "+token
+	);
+
+
+	String json = gson.toJson(emailRequest);
+	MediaType JSON = MediaType.get("application/json; charset=utf-8");
+	RequestBody body = RequestBody.create(json, JSON);
+
+	Request request = new Request.Builder()
+			.url(urlEmail)
+			.post(body)
+			.build();
+
+	try (Response response = client.newCall(request).execute()) {
+		if (response.isSuccessful()) {
+			System.out.println("Response Code: " + response.code());
+			System.out.println("Response Body: " + response.body().string());
+		} else {
+			System.err.println("Request failed: " + response.code());
+		}
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+}
 
 }

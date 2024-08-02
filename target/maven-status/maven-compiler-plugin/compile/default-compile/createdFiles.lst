@@ -42,6 +42,7 @@ br\com\kebos\security\oauth2\user\OAuth2UserInfoFactory.class
 br\com\kebos\config\CurrentUser.class
 br\com\kebos\service\impl\ItemServiceImpl.class
 br\com\kebos\dto\SignUpRequest$Builder.class
+br\com\kebos\dto\EmailDto.class
 br\com\kebos\security\jwt\TokenAuthenticationFilter.class
 br\com\kebos\service\impl\CategoryService.class
 br\com\kebos\dto\RecommendationDTO.class
@@ -64,6 +65,7 @@ br\com\kebos\model\Role.class
 br\com\kebos\dto\JwtAuthenticationResponse.class
 br\com\kebos\config\RestAuthenticationEntryPoint.class
 br\com\kebos\service\impl\SellerServiceImpl.class
+br\com\kebos\config\TestEmail.class
 br\com\kebos\controller\impl\AuthController.class
 br\com\kebos\model\Category.class
 br\com\kebos\dto\LocalUser.class

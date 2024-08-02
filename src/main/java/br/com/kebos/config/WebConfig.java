@@ -7,8 +7,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
@@ -31,10 +29,6 @@ public class WebConfig implements WebMvcConfigurer {
 		return new ModelMapper();
 	}
 
-	@Bean
-	public JavaMailSender javaMailSender() {
-		return new JavaMailSenderImpl();
-	}
 
 	@Bean
 	public MessageSource messageSource() {
