@@ -10,8 +10,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication(scanBasePackages = "br.com.kebos")
+@CrossOrigin(origins = "*")
 @EnableJpaRepositories
 @EnableTransactionManagement
 @SecurityScheme(name = "kebosapi", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
