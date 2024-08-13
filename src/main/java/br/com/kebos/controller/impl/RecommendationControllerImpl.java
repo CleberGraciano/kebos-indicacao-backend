@@ -66,7 +66,8 @@ public class RecommendationControllerImpl implements RecommendationController {
         } catch (NotFoundException e) {
             throw new RuntimeException(e);
         }
-        return ResponseEntity.ok().body("Status changed");
+
+        return ResponseEntity.ok().build();
     }
 
 }
