@@ -102,4 +102,8 @@ public class User implements Serializable {
 	public String getEmail() {
 		return this.email;
 	}
+
+	public boolean hasValidPassword() {
+		return this.password != null && !this.password.isEmpty();
+	}
 }
