@@ -8,8 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemRecommendation {
@@ -18,10 +16,15 @@ public class ItemRecommendation {
     private Long id;
 
     @OneToOne
+    @Getter
+    @Setter
     private Item item;
 
+    @Getter
+    @Setter
     private int quantidade;
 
+    @Getter
+    @Setter
     private int totalBonus;
-
 }

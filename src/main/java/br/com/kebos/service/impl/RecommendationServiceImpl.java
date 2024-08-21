@@ -23,7 +23,6 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     private RecommendationRepository recommendationRepository;
 
-
     private UserRepository userRepository;
 
 
@@ -71,6 +70,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         recommendation.setStatus(StatusRecommendationEnum.ENVIADO);
         recommendation.setCreatedDate(new Date());
         recommendation.setModifiedDate(new Date());
+        recommendation.setItemRecommendations(recommendation.getItemRecommendations());
         return recommendationRepository.save(recommendation);
     }
 

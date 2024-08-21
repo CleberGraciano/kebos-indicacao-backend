@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity()
 @Getter
 @Setter
 @NoArgsConstructor
@@ -38,8 +38,8 @@ public class Recommendation implements Serializable {
     private Seller seller;
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "itemRecommendation_id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
     private List<ItemRecommendation> itemRecommendations;
 
     private double valortotal ;
@@ -82,4 +82,7 @@ public class Recommendation implements Serializable {
         return recommendation;
     }
 
+    public List<ItemRecommendation> getItemRecommendations() {
+        return itemRecommendations;
+    }
 }

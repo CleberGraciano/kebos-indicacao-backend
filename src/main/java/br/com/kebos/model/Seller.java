@@ -28,7 +28,7 @@ public class Seller {
 
     private String telefone;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
@@ -43,7 +43,4 @@ public class Seller {
 
         return seller;
     }
-
-
-
 }
