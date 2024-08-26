@@ -49,7 +49,7 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date modifiedDate;
 
-	@JsonIgnore
+	@JsonIgnore()
 	private String password;
 
 	@JsonIgnore
