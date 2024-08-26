@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import br.com.kebos.dto.*;
 import br.com.kebos.exception.UserAlreadyExistAuthenticationException;
+import br.com.kebos.model.UnsafeUser;
 import br.com.kebos.model.User;
 import br.com.kebos.security.jwt.TokenProvider;
 import br.com.kebos.service.UserService;
@@ -60,7 +61,7 @@ public class AuthController {
 		return ResponseEntity.ok().body(new ApiResponse(true, "Usuário registrado com sucesso"));
 	}
 	@PutMapping("/partner/{id}")
-	public ResponseEntity<?> savePartner(@PathVariable(name = "id") Long id, @RequestBody User partner){
+	public ResponseEntity<?> savePartner(@PathVariable(name = "id") Long id, @RequestBody UnsafeUser partner){
 		try {
 			userService.updatePartner(id, partner);
 		} catch (NotFoundException e) {

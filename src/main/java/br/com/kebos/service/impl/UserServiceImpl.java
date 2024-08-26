@@ -9,6 +9,7 @@ import br.com.kebos.dto.LocalUser;
 import br.com.kebos.dto.SignUpRequest;
 import br.com.kebos.dto.SocialProvider;
 import br.com.kebos.model.*;
+import br.com.kebos.model.UnsafeUser;
 import br.com.kebos.repository.PartnerRepository;
 import br.com.kebos.repository.PasswordResetTokenRepository;
 import br.com.kebos.security.oauth2.user.OAuth2UserInfo;
@@ -16,12 +17,9 @@ import br.com.kebos.security.oauth2.user.OAuth2UserInfoFactory;
 import br.com.kebos.service.UserService;
 import br.com.kebos.util.GeneralUtils;
 import br.com.kebos.util.Util;
-import com.google.gson.Gson;
 import javassist.NotFoundException;
-import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -142,7 +140,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(id);
 	}
 
-	public User updatePartner(Long userId, User newPartnerData) throws NotFoundException {
+	public User updatePartner(Long userId, UnsafeUser newPartnerData) throws NotFoundException {
 		User existingUser = null;
 			existingUser = partnerRepository.findById(userId)
 					.orElseThrow(() -> new NotFoundException("Partner not found"));

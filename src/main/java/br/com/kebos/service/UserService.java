@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import br.com.kebos.dto.LocalUser;
 import br.com.kebos.dto.SignUpRequest;
+import br.com.kebos.model.UnsafeUser;
 import br.com.kebos.model.User;
 import javassist.NotFoundException;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -28,7 +29,7 @@ public interface UserService {
 
 	List<User> listUsersByName(String name);
 
-	User updatePartner(Long partnerId, User partner) throws NotFoundException;
+	User updatePartner(Long partnerId, UnsafeUser partner) throws NotFoundException;
 
 	void resetPassword(String email);
 
